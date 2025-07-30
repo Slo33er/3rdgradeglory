@@ -1,0 +1,70 @@
+[gd_scene load_steps=2 format=3 uid="uid://dtqdxsb4u1p4h"]
+
+[ext_resource type="Script" uid="uid://bd20rf4qq5rvf" path="res://clubroom.gd" id="1_soxgu"]
+
+[node name="Clubroom" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_soxgu")
+
+[node name="Call_Players" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.5
+offset_top = -15.5
+offset_right = 48.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+text = "Call Players"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -158.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Back To Main Menu" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Back to amin menu"
+
+[node name="TeamListContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 120.0
+offset_right = 65.0
+offset_bottom = 160.0
+
+[node name="StartMatchButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 533.0
+offset_top = 386.0
+offset_right = 632.0
+offset_bottom = 417.0
+text = "Start Match"
+
+[node name="MatchHistory" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 1012.0
+offset_top = 86.0
+offset_right = 1096.0
+offset_bottom = 132.0
+
+[connection signal="pressed" from="Call_Players" to="." method="_on_call_players_pressed"]
+[connection signal="pressed" from="VBoxContainer/Back To Main Menu" to="." method="_on_back_to_menu_pressed"]
+[connection signal="pressed" from="StartMatchButton" to="." method="_on_startMatchButtonPressed"]
