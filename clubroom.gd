@@ -1,6 +1,10 @@
 extends Control
 
 func _ready():
+	# Check buttons exist before changing visibility
+	if has_node("ForfeitButton"):
+		$ForfeitButton.visible = false
+	
 	$StartMatchButton.visible = false #Default hidden
 	
 	for player_name in GameState.players_ready_list:
@@ -13,9 +17,16 @@ func _ready():
 	
 	#Hide or disable Call players if team is locked in
 	if GameState.team_finalised:
-		$Call_Players.disabled = true	
-	if GameState.players_ready_list.size() >= 9:
+		$Call_Players.disabled = true
+			
+	var count = GameState.players_ready_list.size()
+
+	if count >= 9:
 		$StartMatchButton.visible = true
+		$ForfeitButton.visible = false
+	else:
+		$StartMatchButton.visible = false
+		$ForfeitButton.visible = true
 		
 
 func _on_back_to_menu_pressed():
@@ -36,48 +47,47 @@ func _on_startMatchButtonPressed():
 	var players_ready = GameState.players_ready_list.size()
 	var result = ""
 
-	# Simulate the result based on number of players
 	if players_ready < 9:
+		GameState.forfeits += 1
 		result = "Forfeit"
 	elif players_ready >= 11:
 		result = "Win"
 	else:
 		var roll = randi() % 100
-		result = "Win" if roll < 60 else "Loss"
+		if roll < 75:
+			result = "Win"
+		else:
+			result = "Loss"
 
 	# Store the result
 	GameState.match_results.append("Week %d: %s" % [GameState.current_week, result])
 	GameState.current_week += 1
+	if GameState.current_week > 12:
+		$MatchResultLabel.text = "Season is over"
+		$MatchResultLabel.visible = true
+		$StartMatchButton.visible = false
+		return
 
-	# Create a simple popup panel manually
-	var popup = Panel.new()
-	popup.custom_minimum_size = Vector2(200, 120)
-	popup.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
+	# Display result on the label instead of popup
+	$MatchResultLabel.text = "Result: %s" % result
+	$MatchResultLabel.visible = true
 
-	var vbox = VBoxContainer.new()
-	vbox.alignment = BoxContainer.ALIGNMENT_CENTER
-	vbox.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	popup.add_child(vbox)
-
-	# Add result label
-	var label = Label.new()
-	label.text = "Result: %s" % result
-	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_FILL
-	vbox.add_child(label)
-
-	# Add OK button
-	var ok_button = Button.new()
-	ok_button.text = "OK"
-	#ok_button.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	ok_button.pressed.connect(func(): popup.queue_free())
-	vbox.add_child(ok_button)
-
-	add_child(popup)
-
-	# Update match history
+	# Update match history list
 	show_match_history()
+	
+	#Reset Player list
+	GameState.players_ready_list.clear()
+	for child in $TeamListContainer.get_children():
+		child.queue_free()
+		
+		# ✅ Allow players to be called again
+	GameState.player_called_this_week = false
+	GameState.team_finalised = false
+	
 
-
+	#Buttons
+	$StartMatchButton.set_disabled(not GameState.player_called_this_week)
+	$Call_Players.disabled = false
 	
 	
 func show_match_history():
@@ -87,3 +97,34 @@ func show_match_history():
 		var label = Label.new()
 		label.text = match
 		$MatchHistory.add_child(label)
+
+
+func _on_ForfeitButton_pressed():
+	var result = "Forfeit"
+	GameState.forfeits += 1
+
+	GameState.match_results.append("Week %d: %s" % [GameState.current_week, result])
+	GameState.current_week += 1
+
+	if GameState.current_week > 12:
+		$MatchResultLabel.text = "Season is over"
+		$MatchResultLabel.visible = true
+		$StartMatchButton.visible = false
+		$ForfeitButton.visible = false
+		return
+
+	$MatchResultLabel.text = "Result: %s" % result
+	$MatchResultLabel.visible = true
+
+	show_match_history()
+
+	# Clear team and prepare next week
+	GameState.players_ready_list.clear()
+	for child in $TeamListContainer.get_children():
+		child.queue_free()
+
+	GameState.player_called_this_week = false
+	GameState.team_finalised = false
+
+	$StartMatchButton.set_disabled(true)
+	$Call_Players.disabled = false

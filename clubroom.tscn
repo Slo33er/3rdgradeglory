@@ -52,11 +52,27 @@ offset_bottom = 160.0
 
 [node name="StartMatchButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 533.0
-offset_top = 386.0
-offset_right = 632.0
-offset_bottom = 417.0
+offset_left = 528.0
+offset_top = 368.0
+offset_right = 627.0
+offset_bottom = 399.0
 text = "Start Match"
+
+[node name="ForfeitButton" type="Button" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 528.0
+offset_top = 368.0
+offset_right = 627.0
+offset_bottom = 399.0
+text = "Forfeit"
+
+[node name="MatchResultLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 560.0
+offset_top = 433.0
+offset_right = 600.0
+offset_bottom = 456.0
 
 [node name="MatchHistory" type="VBoxContainer" parent="."]
 layout_mode = 0
@@ -68,3 +84,4 @@ offset_bottom = 132.0
 [connection signal="pressed" from="Call_Players" to="." method="_on_call_players_pressed"]
 [connection signal="pressed" from="VBoxContainer/Back To Main Menu" to="." method="_on_back_to_menu_pressed"]
 [connection signal="pressed" from="StartMatchButton" to="." method="_on_startMatchButtonPressed"]
+[connection signal="pressed" from="ForfeitButton" to="." method="_on_ForfeitButton_pressed"]
