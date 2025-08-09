@@ -9,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_soxgu")
 
 [node name="Call_Players" type="Button" parent="."]
@@ -41,7 +42,7 @@ grow_vertical = 0
 
 [node name="Back To Main Menu" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-text = "Back to amin menu"
+text = "Back to main menu"
 
 [node name="TeamListContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
@@ -69,10 +70,10 @@ text = "Forfeit"
 
 [node name="MatchResultLabel" type="Label" parent="."]
 layout_mode = 0
-offset_left = 560.0
-offset_top = 433.0
-offset_right = 600.0
-offset_bottom = 456.0
+offset_left = 314.0
+offset_top = 307.0
+offset_right = 354.0
+offset_bottom = 330.0
 
 [node name="MatchHistory" type="VBoxContainer" parent="."]
 layout_mode = 0
@@ -80,6 +81,31 @@ offset_left = 1012.0
 offset_top = 86.0
 offset_right = 1096.0
 offset_bottom = 132.0
+
+[node name="WeeklyUpdate" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 273.0
+offset_top = 39.0
+offset_right = 890.0
+offset_bottom = 217.0
+bbcode_enabled = true
+
+[node name="MoraleBar" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 496.0
+offset_top = 477.0
+offset_right = 662.0
+offset_bottom = 504.0
+value = 75.0
+show_percentage = false
+
+[node name="Fill" type="ColorRect" parent="MoraleBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [connection signal="pressed" from="Call_Players" to="." method="_on_call_players_pressed"]
 [connection signal="pressed" from="VBoxContainer/Back To Main Menu" to="." method="_on_back_to_menu_pressed"]

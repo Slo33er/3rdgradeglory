@@ -72,10 +72,11 @@ func handle_player(player_name: String) -> void:
 	
 	#30% chance a player gives an excuse
 	var roll = randi() %100
-	if roll < 1:
+	if roll < 30:
 		var excuse = excuses[randi() % excuses.size()]
 		excuse_message = "%s can't play: %s" %[player_name, excuse]
 		add_excuse(player_name)
+		GameState.excuse_log.append("%s: %s" % [player_name,excuse])
 	else:
 		excuse_message = "%s is available and ready!" % player_name
 		add_player_to_team(player_name)

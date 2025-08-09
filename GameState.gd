@@ -3,7 +3,7 @@ var wins: int = 0
 var losses: int = 0
 var forfeits: int = 0
 var money: int = 500
-var morale: int = 75
+var morale: int = 50
 var backup_calls: int = 3
 #Stores Rsults like ["Win", "Loss", "Forfeit"]
 var match_results: Array = []
@@ -14,7 +14,8 @@ var already_visited_clubroom: bool = false
 var player_called_this_week: bool = false
 # Has player calling already been done?
 var team_finalised: bool = false 
-
+var excuse_log: Array = []
+var last_match_result: String = ""
 
 
 
