@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dtqdxsb4u1p4h"]
+[gd_scene load_steps=3 format=3 uid="uid://dtqdxsb4u1p4h"]
 
 [ext_resource type="Script" uid="uid://bd20rf4qq5rvf" path="res://clubroom.gd" id="1_soxgu"]
+[ext_resource type="Texture2D" uid="uid://bcr0pr6io51fw" path="res://clubroom.png" id="2_ixhax"]
 
 [node name="Clubroom" type="Control"]
 layout_mode = 3
@@ -11,6 +12,11 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_soxgu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(580.5, 381)
+scale = Vector2(1.13574, 0.722656)
+texture = ExtResource("2_ixhax")
 
 [node name="Call_Players" type="Button" parent="."]
 layout_mode = 1
@@ -46,10 +52,10 @@ text = "Back to main menu"
 
 [node name="TeamListContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 25.0
-offset_top = 120.0
-offset_right = 65.0
-offset_bottom = 160.0
+offset_left = 147.0
+offset_top = 142.0
+offset_right = 187.0
+offset_bottom = 182.0
 
 [node name="StartMatchButton" type="Button" parent="."]
 layout_mode = 0
